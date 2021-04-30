@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1200"
+   LastUpgradeVersion = "1240"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5733B35A248884F60035C9B7"
-               BuildableName = "CharacterDetailExtension.appex"
-               BlueprintName = "CharacterDetailExtension"
+               BlueprintIdentifier = "FD426BFD25E592EB00BB10DC"
+               BuildableName = "EmojiRangerWidgetExtension.appex"
+               BlueprintName = "EmojiRangerWidgetExtension"
                ReferencedContainer = "container:Emoji Rangers.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -62,9 +62,9 @@
          BundleIdentifier = "com.apple.springboard">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5733B35A248884F60035C9B7"
-            BuildableName = "CharacterDetailExtension.appex"
-            BlueprintName = "CharacterDetailExtension"
+            BlueprintIdentifier = "FD426BFD25E592EB00BB10DC"
+            BuildableName = "EmojiRangerWidgetExtension.appex"
+            BlueprintName = "EmojiRangerWidgetExtension"
             ReferencedContainer = "container:Emoji Rangers.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
@@ -80,8 +80,8 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"
-            value = "LeaderboardWidget"
-            isEnabled = "YES">
+            value = ""
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "_XCWidgetDefaultView"

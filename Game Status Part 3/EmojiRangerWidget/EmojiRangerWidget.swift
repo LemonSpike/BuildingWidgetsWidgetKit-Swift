@@ -10,7 +10,7 @@ import SwiftUI
 
 struct Provider: IntentTimelineProvider {
     
-    typealias Intent = CharacterSelectionIntent
+    typealias Intent = DynamicCharacterSelectionIntent
     
     public typealias Entry = SimpleEntry
     
@@ -18,21 +18,24 @@ struct Provider: IntentTimelineProvider {
         return SimpleEntry(date: Date(), relevance: nil, character: .panda)
     }
     
-    func getSnapshot(for configuration: CharacterSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> Void) {
+    func getSnapshot(for configuration: DynamicCharacterSelectionIntent, in context: Context, completion: @escaping (SimpleEntry) -> Void) {
         let entry = SimpleEntry(date: Date(), relevance: nil, character: .panda)
         completion(entry)
     }
     
-    func getTimeline(for configuration: CharacterSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
-        let selectedCharacter = character(for: configuration)
-        let endDate = selectedCharacter.fullHealthDate
+    func getTimeline(for configuration: DynamicCharacterSelectionIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
+      let selectedCharacter = CharacterDetail.characterFromName(name: configuration.hero?.identifier)
+      let endDate = selectedCharacter?.fullHealthDate
         let oneMinute: TimeInterval = 60
         var currentDate = Date()
         var entries: [SimpleEntry] = []
 
-        while currentDate < endDate {
-            let relevance = TimelineEntryRelevance(score: Float(selectedCharacter.healthLevel))
-            let entry = SimpleEntry(date: currentDate, relevance: relevance, character: selectedCharacter)
+      guard let endDateActual = endDate else {
+        return
+      }
+        while currentDate < endDateActual {
+          let relevance = TimelineEntryRelevance(score: Float(selectedCharacter!.healthLevel))
+          let entry = SimpleEntry(date: currentDate, relevance: relevance, character: selectedCharacter!)
             
             currentDate += oneMinute
             entries.append(entry)
@@ -42,20 +45,6 @@ struct Provider: IntentTimelineProvider {
 
         completion(timeline)
     }
-    
-    func character(for configuration: CharacterSelectionIntent) -> CharacterDetail {
-        switch configuration.hero {
-        case .panda:
-            return .panda
-        case .egghead:
-            return .egghead
-        case .spouty:
-            return .spouty
-        default:
-            return .panda
-        }
-    }
-    
 }
 
 struct SimpleEntry: TimelineEntry {
@@ -106,7 +95,7 @@ struct EmojiRangerWidget: Widget {
     private let kind: String = "EmojiRangerWidget"
 
     public var body: some WidgetConfiguration {
-        IntentConfiguration(kind: kind, intent: CharacterSelectionIntent.self, provider: Provider()) { entry in
+        IntentConfiguration(kind: kind, intent: DynamicCharacterSelectionIntent.self, provider: Provider()) { entry in
             EmojiRangerWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Ranger Detail")

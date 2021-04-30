@@ -37,7 +37,7 @@ struct AvatarView: View {
                 }
                 VStack(alignment: .leading, spacing: 6) {
                         Text("HP")
-                        HealthLevelShape(level: character.healthLevel)
+                  HealthLevelShape(level: character.healthLevel)
                         .frame(height: 10)
                     Text("Healing Time")
                     Text(character.fullHealthDate, style: .timer)

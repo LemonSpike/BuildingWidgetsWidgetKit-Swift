@@ -60,7 +60,6 @@ struct LeaderboardWidgetEntryView: View {
     }
 }
 
-@main
 struct LeaderboardWidget: Widget {
     private let kind: String = "LeaderboardWidget"
 
@@ -71,6 +70,10 @@ struct LeaderboardWidget: Widget {
         .configurationDisplayName("Ranger Leaderboard")
         .description("See all the rangers.")
         .supportedFamilies([.systemLarge])
+        .onBackgroundURLSessionEvents {
+          (sessionIdentifier, completion) in
+          
+        }
     }
 }
 
@@ -81,4 +84,13 @@ struct LeaderboardWidget_Previews: PreviewProvider {
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
         }
     }
+}
+
+@main
+struct EmojiBundle: WidgetBundle {
+  @WidgetBundleBuilder
+  var body: some Widget {
+    EmojiRangerWidget()
+    LeaderboardWidget()
+  }
 }
